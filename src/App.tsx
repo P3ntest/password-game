@@ -163,7 +163,7 @@ const rules: Rule[] = [
     },
   },
   {
-    content: "Must contain a PUTUS last name",
+    content: "Must contain a POTUS last name",
     test: (password: string) => {
       for (const putus of potus) {
         if (password.toLowerCase().includes(putus)) {
