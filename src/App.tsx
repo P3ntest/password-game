@@ -66,7 +66,7 @@ function Rule({ rule }: { rule: Rule & { valid: boolean } }) {
   return (
     <div
       className={twMerge(
-        "transition-all rounded-xl border-4 p-4 border-red-800 bg-red-200",
+        "transition-all rounded-xl border-4 p-4 border-red-800 bg-red-200 max-w-xs lg:max-w-lg",
         rule.valid && "border-green-800 bg-green-200"
       )}
     >
