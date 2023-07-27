@@ -4,7 +4,6 @@ import { twMerge } from "tailwind-merge";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { toppings } from "./pizza";
 import { potus } from "./potus";
-import { TextInputStyle } from "discord.js";
 import { getCurrentClockEmoji } from "./time";
 import { elements } from "./elements";
 
@@ -218,6 +217,20 @@ const rules: Rule[] = [
         if (password.includes(element.symbol)) {
           console.log(element.symbol);
           return true;
+        }
+      }
+      return false;
+    },
+  },
+  {
+    content:
+      "Your password must contain an element from the periodic table with correct capitalization and frog emojies representing the elements' number of protons in the nucleon.",
+    test: (password: string) => {
+      const frogs = (password.match(/🐸/g) || []).length;
+      console.log("frogs", frogs);
+      for (const element of elements) {
+        if (password.includes(element.symbol)) {
+          if (parseInt(element.number) == frogs) return true;
         }
       }
       return false;
