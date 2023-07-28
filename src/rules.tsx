@@ -231,17 +231,17 @@ export const rules: Rule[] = [
       return password.includes("BaNaNa");
     },
   },
-  {
-    content:
-      "The amount of frogs should represent the absolute delta of capital letters and lowercase letters",
-    test: (password: string) => {
-      const frogs = (password.match(/🐸/g) || []).length;
-      const uppercase = password.match(/[A-Z]/g)?.length || 0;
-      const lowercase = password.match(/[a-z]/g)?.length || 0;
-      const delta = Math.abs(uppercase - lowercase);
-      return frogs === delta;
-    },
-  },
+  // {
+  //   content:
+  //     "The amount of frogs should represent the absolute delta of capital letters and lowercase letters",
+  //   test: (password: string) => {
+  //     const frogs = (password.match(/🐸/g) || []).length;
+  //     const uppercase = password.match(/[A-Z]/g)?.length || 0;
+  //     const lowercase = password.match(/[a-z]/g)?.length || 0;
+  //     const delta = Math.abs(uppercase - lowercase);
+  //     return frogs === delta;
+  //   },
+  // },
   {
     content:
       "Each word may not be longer than 9 letters and must not exceed 13 total characters. Except it the word contains a frog, then it may may only contain 4 characters total",
