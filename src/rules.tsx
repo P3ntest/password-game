@@ -244,19 +244,27 @@ export const rules: Rule[] = [
   // },
   {
     content:
-      "Each word may not be longer than 9 letters and must not exceed 13 total characters. Except it the word contains a frog, then it may may only contain 4 characters total",
+      "Each word may not be longer than 9 letters. Except it the word contains a frog, then it may may only contain 4 characters total (emojies except frog may count as more than 1 character)",
     test: (password: string) => {
       const words = password.split(" ");
       for (const word of words) {
-        if (word.includes("🐸")) {
-          if (word.length > 4) return false;
-        } else {
-          if (word.length > 13) return false;
+        if (!word.includes("🐸")) {
           const letters = word.match(/[a-zA-Z]/g)?.length || 0;
-          if (letters > 9) return false;
+          if (letters > 9) {
+            console.log(word, "letters");
+            return false;
+          }
+        } else {
+          console.log(word);
+          const word2 = word.replaceAll("🐸", "&");
+
+          if (word2.length > 4) {
+            console.log(word, "length");
+            return false;
+          }
         }
       }
-      return password.length <= 13;
+      return true;
     },
   },
   {
@@ -268,41 +276,55 @@ export const rules: Rule[] = [
       for (const word of words) {
         const numbers = word.match(/[0-9]/g)?.map((n) => parseInt(n)) || [];
         const sum = numbers.reduce((a, b) => a + b, 0);
+        if (sum === 0) continue;
         const hasSymbol = word.match(/[^a-zA-Z0-9]/g)?.length || 0;
         if (hasSymbol) {
-          if (sum % 3 !== 0) return false;
+          if (sum % 3 !== 0) {
+            console.log(word, "sum % 3");
+            return false;
+          }
         } else {
-          if (!isPrime(sum)) return false;
+          if (!isPrime(sum)) {
+            console.log(word, "non prime", sum);
+            return false;
+          }
         }
       }
       return true;
     },
   },
-  {
-    content:
-      "The total sum of numbers must be lower than the lowest ascii value of all letters following a frog",
-    test: (password: string) => {
-      const numbers = password.match(/[0-9]/g)?.map((n) => parseInt(n)) || [];
-      const sum = numbers.reduce((a, b) => a + b, 0);
+  // {
+  //   content:
+  //     "The total sum of numbers must be lower than the lowest ascii value of all letters following a frog",
+  //   test: (password: string) => {
+  //     const numbers = password.match(/[0-9]/g)?.map((n) => parseInt(n)) || [];
+  //     const sum = numbers.reduce((a, b) => a + b, 0);
 
-      const frogIndices = password
-        .split("")
-        .map((c, i) => {
-          if (c === "\uDC38") return i;
-        })
-        .filter((i) => i !== undefined);
+  //     const frogIndices = password
+  //       .split("")
+  //       .map((c, i) => {
+  //         if (c === "\uDC38") return i;
+  //       })
+  //       .filter((i) => i !== undefined);
 
-      const ascii = password
-        .split("")
-        .map((c, i) => {
-          if (i > frogIndices[0]) return c.charCodeAt(0);
-        })
-        .filter((i) => i !== undefined)
-        .reduce((a, b) => Math.min(a, b), 0);
+  //     console.log("frogIndices", frogIndices);
 
-      return sum < ascii;
-    },
-  },
+  //     const ascii = password
+  //       .split("")
+  //       .map((c, i) => {
+  //         if (frogIndices.includes(i - 1)) {
+  //           console.log("char", c, c.charCodeAt(0));
+  //           return c.charCodeAt(0);
+  //         }
+  //       })
+  //       .filter((i) => i !== undefined)
+  //       .reduce((a, b) => Math.min(a, b), 0);
+
+  //     console.log("ascii", sum, ascii);
+
+  //     return sum < ascii;
+  //   },
+  // },
 ]
   .map((r, i) => ({ ...r, index: i + 1 }))
   .sort((a) => (a.dev ? -1 : 1));
