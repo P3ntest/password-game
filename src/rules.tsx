@@ -107,7 +107,7 @@ export const rules: Rule[] = [
     content:
       "The roman numerals in your password must add up to 30 (XXX) (case insensitive)",
     test: (password: string) => {
-      password = password.toUpperCase() + " ";
+      password = password + " ";
       const romanNumeral = /[IVXLCDM]+[^IVXLCDM]/g;
 
       let romanNumerals: string[] =
