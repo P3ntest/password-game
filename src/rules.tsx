@@ -187,13 +187,13 @@ export const rules: Rule[] = [
       password.toLowerCase().includes(getCurrentClockEmoji()),
   },
   {
-    content: "您的密码必须恰好包含 10 个大写字母",
+    content: "您的密码必须恰好包含 11 个大写字母",
     test: (password: string) => {
       const uppercase = password
         .split("")
         .filter((c) => c == c.toUpperCase() && /[A-Z]/.test(c));
       console.log(uppercase);
-      return uppercase.length === 10;
+      return uppercase.length === 11;
     },
   },
   {
