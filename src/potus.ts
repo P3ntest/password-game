@@ -43,6 +43,7 @@ export const potus = [
   "jefferson",
   "walker",
   "hussein",
+  "obama",
   "trump",
   "biden",
 ];
