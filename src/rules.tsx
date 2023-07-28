@@ -305,8 +305,7 @@ export const rules: Rule[] = [
   },
 ]
   .map((r, i) => ({ ...r, index: i + 1 }))
-  .sort((a) => (a.dev ? -1 : 1))
-  .splice(0, 2);
+  .sort((a) => (a.dev ? -1 : 1));
 
 function isPrime(num: number) {
   if (num <= 1) return false;
