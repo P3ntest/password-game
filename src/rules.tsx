@@ -105,7 +105,7 @@ export const rules: Rule[] = [
   },
   {
     content:
-      "The roman numerals in your password must add up to 30 (XXX) (case insensitive)",
+      "The roman numerals in your password must add up to 1000 (case insensitive)",
     test: (password: string) => {
       password = password + " ";
       const romanNumeral = /[IVXLCDM]+[^IVXLCDM]/g;
@@ -123,7 +123,7 @@ export const rules: Rule[] = [
 
       console.log(sum);
 
-      return sum === 30;
+      return sum === 1000;
     },
   },
   {
